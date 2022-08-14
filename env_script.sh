@@ -12,8 +12,10 @@ if [ "$EUID" -ne 0 ]; then
     exit
 fi
 
+pushd $PWD
+
 # Raspberry Pi 4 IP
-RPI4_IP=192.168.1.XXX
+RPI4_IP=192.168.1.175
 
 # Install host dependencies
 sudo apt install -y \
@@ -37,24 +39,25 @@ wget -nc http://download.qt.io/archive/qt/5.15/5.15.2/single/qt-everywhere-src-5
 echo -e "${CYAN}Untar Qt 5.15.2${NC}"
 tar xf qt-everywhere-src-5.15.2.tar.xz
 
-# Modify mkspec
-echo -e "${CYAN}Modifying mkspec${NC}"
-cp -R qt-everywhere-src-5.15.2/qtbase/mkspecs/linux-arm-gnueabi-g++ qt-everywhere-src-5.15.2/qtbase/mkspecs/linux-arm-gnueabihf-g++
-sed -i -e 's/arm-linux-gnueabi-/arm-linux-gnueabihf-/g' qt-everywhere-src-5.15.2/qtbase/mkspecs/linux-arm-gnueabihf-g++/qmake.conf
+# Add 64-bit configuration
+echo -e "${CYAN}Copying configuration${NC}"
+popd
+cp -r ./linux-rpi6-vc4-g++ /opt/rpi4/qt-everywhere-src-5.15.2/qtbase/mkspecs/devices/
 
 # Download linaro cross-compiler
 echo -e "${CYAN}Downloading cross-compiler${NC}"
 cd /opt/rpi4/tools
-wget https://releases.linaro.org/components/toolchain/binaries/7.4-2019.02/arm-linux-gnueabihf/gcc-linaro-7.4.1-2019.02-x86_64_arm-linux-gnueabihf.tar.xz
-tar xfv gcc-linaro-7.4.1-2019.02-x86_64_arm-linux-gnueabihf.tar.xz
+wget https://releases.linaro.org/components/toolchain/binaries/7.4-2019.02/aarch64-linux-gnu/gcc-linaro-7.4.1-2019.02-x86_64_aarch64-linux-gnu.tar.xz
+echo -e "${CYAN}Untar Linaro Cross-Compiler${NC}"
+tar xf gcc-linaro-7.4.1-2019.02-x86_64_aarch64-linux-gnu.tar.xz
 
 # Rsync folders
 echo -e "${CYAN}Syncing folders${NC}"
 cd /opt/rpi4
-rsync -avz --rsync-path="sudo rsync" --delete pi@${RPI4_IP}:/lib sysroot/
-rsync -avz --rsync-path="sudo rsync" --delete pi@${RPI4_IP}:/usr/include sysroot/usr/
-rsync -avz --rsync-path="sudo rsync" --delete pi@${RPI4_IP}:/usr/lib sysroot/usr/
-rsync -avz --rsync-path="sudo rsync" --delete pi@${RPI4_IP}:/opt/vc sysroot/opt/
+rsync -az --rsync-path="sudo rsync" --delete pi@${RPI4_IP}:/lib sysroot/
+rsync -az --rsync-path="sudo rsync" --delete pi@${RPI4_IP}:/usr/include sysroot/usr/
+rsync -az --rsync-path="sudo rsync" --delete pi@${RPI4_IP}:/usr/lib sysroot/usr/
+rsync -az --rsync-path="sudo rsync" --delete pi@${RPI4_IP}:/opt/vc sysroot/opt/
 
 # Clean symbolic links
 echo -e "${CYAN}Cleaning symbolic links${NC}"

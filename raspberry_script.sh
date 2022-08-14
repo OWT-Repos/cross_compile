@@ -18,16 +18,20 @@ sudo apt install -y \
     libpng-dev \
     libjpeg-dev \
     libglib2.0-dev \
-    libraspberrypi-dev
+    libraspberrypi-dev \
+    libgles2-mesa-dev \
+    libgbm-dev \
+    libdrm-dev
 
 # Wiring Pi Library
 git clone https://github.com/WiringPi/WiringPi.git
 cd WiringPi
+sed -i -e 's/PREFIX?=\/local/PREFIX?=/g' wiringPi/Makefile
+sed -i -e 's/PREFIX?=\/local/PREFIX?=/g' wiringPiD/Makefile
+sed -i -e 's/PREFIX?=\/local/PREFIX?=/g' gpio/Makefile
+sed -i -e 's/PREFIX?=\/local/PREFIX?=/g' devLib/Makefile
 ./build
 cd ..
-
-#
-sudo apt-get install gcc-multilib
 
 # FFTW3 Library
 sudo apt install -y libfftw3-dev
@@ -55,15 +59,10 @@ sudo apt install -y \
     mariadb-common \
     mysql-common \
     libmariadb-dev-compat \
-    libmariadbclient-dev \
+    libmariadbd-dev \
+    libmysql++-dev \
     libqt5sql5-mysql \
     libts-dev
-
-# Correct links to EGL and GLES Drivers
-sudo rm /usr/lib/arm-linux-gnueabihf/libEGL.so.1.0.0
-sudo rm /usr/lib/arm-linux-gnueabihf/libGLESv2.so.2.0.0
-sudo ln -s /opt/vc/lib/libbrcmEGL.so /usr/lib/arm-linux-gnueabihf/libEGL.so.1.0.0
-sudo ln -s /opt/vc/lib/libbrcmGLESv2.so /usr/lib/arm-linux-gnueabihf/libGLESv2.so.2.0.0
 
 # Linux ALSA Audio support
 sudo apt install -y libasound2-dev

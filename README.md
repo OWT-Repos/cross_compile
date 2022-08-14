@@ -1,12 +1,5 @@
 Here you will find the following bash scripts that need to be run in order to cross-compile the GUI:
 
-## First enable GL (FAKE KMS)
-To enable Fake KMS, type sudo `raspi-config` on your terminal to open a menu, then go to:
-```
-Advanced Options -> A8 GL Driver -> G2 GL (Fake KMS)
-```
-That should enable KMS. Choose Finish finally and exit.
-
 ## Bash scripts
 `raspberry_script.sh` must be run in the Raspberry Pi 4 to install all required dependencies.
 
@@ -16,4 +9,4 @@ That should enable KMS. Choose Finish finally and exit.
 
 Commands present in `mysql_create.sql` must be run in the MySQL server in the Raspberry Pi 4.
 
-The file `config.ini` from the code repository must be copied to the home folder in the Rasberry Pi 4, in this case to the folder `/home/pi`.
+The file `config.ini` from the code repository must be copied to the folder where executable will be used.

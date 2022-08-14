@@ -13,18 +13,19 @@ if [ "$EUID" -ne 0 ]; then
 fi
 
 # Raspberry Pi 4 IP
-RPI4_IP=192.168.1.XXX
+RPI4_IP=192.168.1.175
 
 # Configure Qt 5.15.2
 cd /opt/rpi4/build
-../qt-everywhere-src-5.15.2/configure -release -opengl es2 -eglfs -device linux-rasp-pi4-v3d-g++ \
-    -device-option CROSS_COMPILE=/opt/rpi4/tools/gcc-linaro-7.4.1-2019.02-x86_64_arm-linux-gnueabihf/bin/arm-linux-gnueabihf- \
+../qt-everywhere-src-5.15.2/configure -release -opengl es2 -eglfs -device linux-rpi64-vc4-g++ \
+    -device-option CROSS_COMPILE=/opt/rpi4/tools/gcc-linaro-7.4.1-2019.02-x86_64_aarch64-linux-gnu/bin/aarch64-linux-gnu- \
     -sysroot /opt/rpi4/sysroot \
     -prefix /usr/local/qt5.15 \
     -extprefix /opt/rpi4/qt5.15 \
     -opensource -confirm-license \
     -skip qtscript -skip qtwayland -skip qtwebengine -nomake tests -make libs -pkg-config -no-use-gold-linker -v -recheck \
-    -sql-mysql MYSQL_INCDIR=/opt/rpi4/sysroot/usr/include/mysql MYSQL_LIBDIR=/opt/rpi4/sysroot/usr/lib/arm-linux-gnueabihf
+    -sql-mysql MYSQL_INCDIR=/opt/rpi4/sysroot/usr/include/mysql MYSQL_LIBDIR=/opt/rpi4/sysroot/usr/lib/aarch64-linux-gnu \
+    -no-feature-eglfs_brcm
 
 # Make and install locally Qt 5.15.2
 sudo make -j4
