@@ -42,7 +42,7 @@ tar xf qt-everywhere-src-5.15.2.tar.xz
 # Add 64-bit configuration
 echo -e "${CYAN}Copying configuration${NC}"
 popd
-cp -r ./linux-rpi6-vc4-g++ /opt/rpi4/qt-everywhere-src-5.15.2/qtbase/mkspecs/devices/
+cp -r ./linux-rpi64-vc4-g++ /opt/rpi4/qt-everywhere-src-5.15.2/qtbase/mkspecs/devices/
 
 # Download linaro cross-compiler
 echo -e "${CYAN}Downloading cross-compiler${NC}"
