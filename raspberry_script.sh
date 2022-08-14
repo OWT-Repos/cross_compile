@@ -59,12 +59,6 @@ sudo apt install -y \
     libqt5sql5-mysql \
     libts-dev
 
-# Correct links to EGL and GLES Drivers
-sudo rm /usr/lib/arm-linux-gnueabihf/libEGL.so.1.0.0
-sudo rm /usr/lib/arm-linux-gnueabihf/libGLESv2.so.2.0.0
-sudo ln -s /opt/vc/lib/libbrcmEGL.so /usr/lib/arm-linux-gnueabihf/libEGL.so.1.0.0
-sudo ln -s /opt/vc/lib/libbrcmGLESv2.so /usr/lib/arm-linux-gnueabihf/libGLESv2.so.2.0.0
-
 # Linux ALSA Audio support
 sudo apt install -y libasound2-dev
 
