@@ -47,7 +47,7 @@ cp -r ./linux-rpi64-vc4-g++ /opt/rpi4/qt-everywhere-src-5.15.2/qtbase/mkspecs/de
 # Download linaro cross-compiler
 echo -e "${CYAN}Downloading cross-compiler${NC}"
 cd /opt/rpi4/tools
-wget https://releases.linaro.org/components/toolchain/binaries/7.4-2019.02/aarch64-linux-gnu/gcc-linaro-7.4.1-2019.02-x86_64_aarch64-linux-gnu.tar.xz
+wget -nc https://releases.linaro.org/components/toolchain/binaries/7.4-2019.02/aarch64-linux-gnu/gcc-linaro-7.4.1-2019.02-x86_64_aarch64-linux-gnu.tar.xz
 echo -e "${CYAN}Untar Linaro Cross-Compiler${NC}"
 tar xf gcc-linaro-7.4.1-2019.02-x86_64_aarch64-linux-gnu.tar.xz
 
@@ -57,7 +57,6 @@ cd /opt/rpi4
 rsync -az --rsync-path="sudo rsync" --delete pi@${RPI4_IP}:/lib sysroot/
 rsync -az --rsync-path="sudo rsync" --delete pi@${RPI4_IP}:/usr/include sysroot/usr/
 rsync -az --rsync-path="sudo rsync" --delete pi@${RPI4_IP}:/usr/lib sysroot/usr/
-rsync -az --rsync-path="sudo rsync" --delete pi@${RPI4_IP}:/opt/vc sysroot/opt/
 
 # Clean symbolic links
 echo -e "${CYAN}Cleaning symbolic links${NC}"
