@@ -16,4 +16,4 @@ That should enable KMS. Choose Finish finally and exit.
 
 Commands present in `mysql_create.sql` must be run in the MySQL server in the Raspberry Pi 4.
 
-The file `config.ini` from the code repository must be copied to the home folder in the Rasberry Pi 4, in this case to the folder `/home/pi`.
+The file `config.ini` from the code repository must be copied to the folder where executable will be used.
